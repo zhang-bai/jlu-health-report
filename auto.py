@@ -10,6 +10,7 @@ minute = random.randint(10, 30)
 
 def check_all():
     for user in users:
+        print("OOKK")
         check(user['username'], user['password'])
         
         
@@ -23,6 +24,7 @@ schedule = Scheduler(tzinfo=dt.timezone.utc)
 # schedule jobs
 schedule.daily(dt.time(hour=8, minute=minute, tzinfo=tz_shanghai), check_all)
 schedule.daily(dt.time(hour=21, , minute=minute, tzinfo=tz_shanghai), check_all)
+schedule.daily(dt.time(hour=18, , minute=15, tzinfo=tz_shanghai), check_all)
 
 
 
