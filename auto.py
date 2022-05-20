@@ -1,36 +1,21 @@
 import schedule, random, time
 from users import *
 from main import check
-import datetime as dt
-from scheduler import Scheduler
-import scheduler.trigger as trigger
 
-minute = random.randint(10, 30)
-
+minute = random.randint(1, 10)
+CHECK_SCHEDULES = [
+    (7, minute),
+    (21, minute)
+]
 
 def check_all():
     for user in users:
-        print("OOKK")
         check(user['username'], user['password'])
-        
-        
-
-# Instead of setting the timezones yourself you can use the `pytz` library
-tz_shanghai = dt.timezone(dt.timedelta(hours=8))
-
-# can be any valid timezone
-schedule = Scheduler(tzinfo=dt.timezone.utc)
-
-# schedule jobs
-schedule.daily(dt.time(hour=8, minute=minute, tzinfo=tz_shanghai), check_all)
-schedule.daily(dt.time(hour=21, , minute=minute, tzinfo=tz_shanghai), check_all)
-schedule.daily(dt.time(hour=18, , minute=15, tzinfo=tz_shanghai), check_all)
-
-
-
 
 if __name__ == "__main__":
+    for i in range(len(CHECK_SCHEDULES)):
+        schedule.every().day.at("{:0>2d}:{:0>2d}".format(*CHECK_SCHEDULES[i])).do(check_all)
 
     while True:
-        schedule.exec_jobs()
+        schedule.run_pending()
         time.sleep(30)
