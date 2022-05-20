@@ -2,7 +2,7 @@ import schedule, random, time
 from users import *
 from main import check
 
-minute = random.randint(10, 30)
+minute = random.randint(1, 10)
 CHECK_SCHEDULES = [
     (8, minute),
     (21, minute)
